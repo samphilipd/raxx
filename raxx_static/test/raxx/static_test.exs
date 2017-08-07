@@ -23,7 +23,7 @@ defmodule Raxx.StaticTest do
   test "A file is served with the correct content length" do
     request = %Raxx.Request{method: :GET, path: ["hello.txt"]}
     response = SingleFile.handle_request(request, [])
-    assert {"content-length", "14"} == List.keyfind(response.headers, "content-length", 0)
+    assert {"Content-Length", "14"} == List.keyfind(response.headers, "Content-Length", 0)
   end
 
   test "A text file is served with the correct content type" do

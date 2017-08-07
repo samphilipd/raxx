@@ -1,29 +1,29 @@
 defmodule Raxx.ContentLength do
   @moduledoc """
-  Manipulate content-length header on raxx messages
+  Manipulate Content-Length header on raxx messages
 
   """
 
-  @field_name "content-length"
+  @field_name "Content-Length"
 
   @doc """
-  Read content-length of the HTTP message.
+  Read Content-Length of the HTTP message.
 
   ## Examples
 
-      iex> %Raxx.Request{headers: [{"content-length", "100"}]} |> Raxx.ContentLength.fetch
+      iex> %Raxx.Request{headers: [{"Content-Length", "100"}]} |> Raxx.ContentLength.fetch
       {:ok, 100}
 
       iex> %Raxx.Request{headers: []} |> Raxx.ContentLength.fetch
       {:error, :field_value_not_specified}
 
-      iex> %Raxx.Request{headers: [{"content-length", "garbage"}]} |> Raxx.ContentLength.fetch
+      iex> %Raxx.Request{headers: [{"Content-Length", "garbage"}]} |> Raxx.ContentLength.fetch
       {:error, :field_value_parse_failure}
 
-      iex> %Raxx.Request{headers: [{"content-length", "100garbage"}]} |> Raxx.ContentLength.fetch
+      iex> %Raxx.Request{headers: [{"Content-Length", "100garbage"}]} |> Raxx.ContentLength.fetch
       {:error, :field_value_parse_failure}
 
-      iex> %Raxx.Request{headers: [{"content-length", "100"}, {"content-length", "200"}]} |> Raxx.ContentLength.fetch
+      iex> %Raxx.Request{headers: [{"Content-Length", "100"}, {"Content-Length", "200"}]} |> Raxx.ContentLength.fetch
       {:error, :duplicated_field}
   """
   def fetch(%{headers: headers}) do
@@ -38,15 +38,15 @@ defmodule Raxx.ContentLength do
   end
 
   @doc """
-  Set the content-length of a HTTP message.
+  Set the Content-Length of a HTTP message.
 
   ## Examples
 
       iex> %Raxx.Request{} |> Raxx.ContentLength.set(100) |> Map.get(:headers)
-      [{"content-length", "100"}]
+      [{"Content-Length", "100"}]
 
-      iex> %Raxx.Request{headers: [{"content-length", "200"}]} |> Raxx.ContentLength.set(100) |> Map.get(:headers)
-      [{"content-length", "100"}]
+      iex> %Raxx.Request{headers: [{"Content-Length", "200"}]} |> Raxx.ContentLength.set(100) |> Map.get(:headers)
+      [{"Content-Length", "100"}]
   """
   def set(message = %{headers: headers}, value) when value >= 0 do
     headers = :proplists.delete(@field_name, headers)

@@ -10,7 +10,7 @@ defmodule Raxx.Verify.ResponseCase do
       def hello_world(request) do
         body = "Hello, World!"
         Raxx.Response.ok(body, [
-          {"content-length", "#{:erlang.iolist_size(body)}"},
+          {"Content-Length", "#{:erlang.iolist_size(body)}"},
           {"custom-header", "my-value"}
         ])
       end
@@ -22,7 +22,7 @@ defmodule Raxx.Verify.ResponseCase do
 
       test "Hello response has content length header", %{port: port} do
         {:ok, %{headers: headers}} = HTTPoison.get("localhost:#{port}/hello_world", [])
-        assert {"content-length", "13"} = List.keyfind(headers, "content-length", 0)
+        assert {"Content-Length", "13"} = List.keyfind(headers, "Content-Length", 0)
       end
 
       test "Hello response has custom header", %{port: port} do

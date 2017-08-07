@@ -35,7 +35,7 @@ defmodule Raxx.Static do
     case File.read(filename) do
       {:ok, content} ->
         response = Raxx.Response.ok(content, [
-          {"content-length", "#{:erlang.iolist_size(content)}"},
+          {"Content-Length", "#{:erlang.iolist_size(content)}"},
           {"content-type", mime}
         ])
         quote do
